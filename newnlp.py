@@ -13,16 +13,19 @@ nltk.download([
 from nltk.corpus import wordnet
 from nltk.corpus import stopwords
 
+#import spacy
 import spacy
 from spacy import displacy
 from spacy.tokens import Span
 import pandas
-#download and loading spacy's 
+
+#download and loading spacy's models
 spacy.cli.download("en_core_web_sm") 
 NLP = spacy.load('en_core_web_sm')
 
 import re
 
+#constants for 
 COLUMN_OF_LABEL_KEY_NAME = "total_label"
 COLUMN_OF_PERSON_LABEL_KEY_NAME = "personal_label"
 COLUMN_OF_SPAN_KEY_NAME = "span"
@@ -59,11 +62,11 @@ def get_preprocessed_message_text(message_text: str) -> str:
                                     u"\U00002702-\U000027B0"
                                     u"\U000024C2-\U0001F251"
                                     "]+", flags=re.UNICODE)
-        return emoji_pattern.sub(r'', text)
+        return emoji_pattern.sub(r'', message_text)
 
     def get_removed_url_text(message_text: str) -> str: 
         url_pattern  = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
-        return url_pattern.sub(r'', text)
+        return url_pattern.sub(r'', message_text)
 
     message_text = " ".join(message_text.lower().split()) # removing all useless spaces
     message_text = get_cleared_from_stop_words_text(message_text) # removing all stop words
@@ -80,20 +83,22 @@ def get_label_from_data(message_text: str) -> str:
 saving pandas DataFrame to csv file
 args: new dataset file name, DataFrame for saving
 responce: None (cause why we need to return something if this is jus a function for saving data in .csv file) 
-'''
+''' 
 def load_data_to_csv(new_dataset_file_name: str, current_parsed_dataset: pandas.DataFrame, file_path: str = "") -> None:
     current_parsed_dataset.to_csv(file_path + new_dataset_file_name)
 
 #get labels 
 def get_personal_label_by_message(message_text: str) -> str:
     pass
+
 #get total labels
 def get_total_labels_by_message(message_text: str) -> str:
     pass
 
-
+#main loop for processing data in dataset and load new columns 
 def processing_on_dataset(parsed_dataset: pandas.DataFrame) -> None:
-    parsed_dataset[COLUMN_OF_LABEL_KEY_NAME], parsed_dataset[COLUMN_OF_PERSON_LABEL_KEY_NAME],
+    parsed_dataset[COLUMN_OF_LABEL_KEY_NAME],
+    parsed_dataset[COLUMN_OF_PERSON_LABEL_KEY_NAME],
     parsed_dataset[COLUMN_OF_SPAN_KEY_NAME] = " ", " ", " "
 
     for index_of_row, data_row in parsed_dataset.iterrows():
@@ -105,7 +110,6 @@ def processing_on_dataset(parsed_dataset: pandas.DataFrame) -> None:
 
 def main():
     parsed_data = get_parsed_data(path_for_file=input("Enter the path for dataset file: \n"), total_row_limit=20000)
-   
     processing_on_dataset(parsed_data)
     load_data_to_csv("answer.csv", parsed_data)
     print(parsed_data)
