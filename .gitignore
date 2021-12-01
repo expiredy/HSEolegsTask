@@ -1,3 +1,9 @@
+#ide cashe 
 /.vscode/
+#datasets
 **.csv
+#collab's files with original task
 **.ipynb
+
+#my secret milk files
+my_prefabs/
