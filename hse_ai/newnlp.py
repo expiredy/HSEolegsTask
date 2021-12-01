@@ -48,10 +48,11 @@ args: message for preprocessing
 response: preprocessed message in string format
 '''
 def get_preprocessed_message_text(message_text: str) -> str:
+    #deleting stop words from message by NLTK english stopwrods module
     def get_cleared_from_stop_words_text(message_text: str) -> str:
         filtered_message_text = " ".join([word for word in message_text.split()
                                          if word not in stopwords.words(NLTK_LANGUAGE_KEY)])
-        return
+        return filtered_message_text
     
     def get_removed_emoji_text(message_text: str) -> str:
         emoji_pattern = re.compile("["
@@ -62,11 +63,12 @@ def get_preprocessed_message_text(message_text: str) -> str:
                                     u"\U00002702-\U000027B0"
                                     u"\U000024C2-\U0001F251"
                                     "]+", flags=re.UNICODE)
-        return emoji_pattern.sub(r'', message_text)
+        print(re.subn(emoji_pattern, message_text))
+        return re.subn(emoji_pattern, message_text)
 
     def get_removed_url_text(message_text: str) -> str: 
         url_pattern  = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
-        return url_pattern.sub(r'', message_text)
+        return re.sub(url_pattern, message_text)
 
     message_text = " ".join(message_text.lower().split()) # removing all useless spaces
     message_text = get_cleared_from_stop_words_text(message_text) # removing all stop words
@@ -87,10 +89,13 @@ responce: None (cause why we need to return something if this is jus a function 
 def load_data_to_csv(new_dataset_file_name: str, current_parsed_dataset: pandas.DataFrame, file_path: str = "") -> None:
     current_parsed_dataset.to_csv(file_path + new_dataset_file_name)
 
+#TODO: make a personal labels finder from text message 
 #get labels 
 def get_personal_label_by_message(message_text: str) -> str:
     pass
 
+
+#TODO: make a total labels finder from text message
 #get total labels
 def get_total_labels_by_message(message_text: str) -> str:
     pass
