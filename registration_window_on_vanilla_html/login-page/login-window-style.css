@@ -1,0 +1,9 @@
+.login-text-header{
+    color: rgb(201, 218, 198);
+    font-family: fantasy;
+}
+
+#login-window{
+    
+    border: 1px solid rgb(156, 156, 156)
+}
