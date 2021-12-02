@@ -1,3 +1,7 @@
 body{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Noto Sans', sans-serif;
     background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(15,15,37,1) 38%, rgba(0,23,28,1) 100%);
 }
