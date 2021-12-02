@@ -13,16 +13,15 @@ nltk.download([
 from nltk.corpus import wordnet
 from nltk.corpus import stopwords
 
-#import spacy
 import spacy
+#import spacy's models and tokens 
 from spacy import displacy
 from spacy.tokens import Span
-import pandas
-
 #download and loading spacy's models
 spacy.cli.download("en_core_web_sm") 
 NLP = spacy.load('en_core_web_sm')
 
+import pandas
 import re
 
 #constants for 
@@ -48,12 +47,12 @@ args: message for preprocessing
 response: preprocessed message in string format
 '''
 def get_preprocessed_message_text(message_text: str) -> str:
-    #deleting stop words from message by NLTK english stopwrods module
+    #deleting stop words from message by NLTK english stop words module
     def get_cleared_from_stop_words_text(message_text: str) -> str:
         filtered_message_text = " ".join([word for word in message_text.split()
                                          if word not in stopwords.words(NLTK_LANGUAGE_KEY)])
         return filtered_message_text
-    
+    #deleting emojis from text message
     def get_removed_emoji_text(message_text: str) -> str:
         emoji_pattern = re.compile("["
                                     u"\U0001F600-\U0001F64F"  # emoticons
