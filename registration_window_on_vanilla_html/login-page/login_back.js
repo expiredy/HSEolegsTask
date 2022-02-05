@@ -2,6 +2,7 @@ function GetPasswordFromDatabase(inputLogin) {
     //Давай сделаем вид, что это реальный запрос в базу данных, а не работа со спискои JSON'ов
     database = [{login: "login", password: "password"},
             {login: "login1", password: "password2"}]
+            
     for (indexOfUser = 0; indexOfUser < database.length; indexOfUser++){
         if (database[indexOfUser].login === inputLogin){
             return database[indexOfUser].password;

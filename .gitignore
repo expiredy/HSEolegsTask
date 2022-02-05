@@ -1,5 +1,7 @@
 #ide cashe 
-/.vscode/
+**/.vscode/
+**/.idea/
+
 #datasets
 **.csv
 #collab's files with original task
@@ -7,3 +9,8 @@
 
 #my secret milk files
 my_prefabs/
+
+
+#C++ building directories 
+**/build/
+**/cmake-build-debug/
